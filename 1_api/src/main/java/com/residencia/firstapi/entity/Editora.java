@@ -19,10 +19,6 @@ public class Editora {
     @Column(name = "editora_nome")
     private String editoraNome;
 
-    @OneToMany(mappedBy = "editora")
-    @JsonIgnore
-    private List<Livro> livroList;
-
     public Integer getEditoraId() {
         return editoraId;
     }
@@ -39,11 +35,4 @@ public class Editora {
         this.editoraNome = editoraNome;
     }
 
-    public List<Livro> getLivroList() {
-        return livroList;
-    }
-
-    public void setLivroList(List<Livro> livroList) {
-        this.livroList = livroList;
-    }
 }

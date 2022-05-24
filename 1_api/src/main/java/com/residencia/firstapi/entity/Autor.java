@@ -13,15 +13,15 @@ import java.util.List;
 public class Autor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "autor_id")	
+	@Column(name = "autor_id")
 	private Integer autorId;
-	
-	 @Column(name = "autor_nome")
+
+	@Column(name = "autor_nome")
 	private String autorNome;
-	
-	 @OneToMany(mappedBy = "autor")
-	 @JsonIgnore
-	private List<Livro> livrolist;
+
+	@OneToMany(mappedBy = "autor")
+	@JsonIgnore
+	private List<Livro> livroList;
 
 	public Integer getAutorId() {
 		return autorId;
@@ -39,16 +39,12 @@ public class Autor {
 		this.autorNome = autorNome;
 	}
 
-	public List<Livro> getLivrolist() {
-		return livrolist;
+	public List<Livro> getLivroList() {
+		return livroList;
 	}
 
-	public void setLivrolist(List<Livro> livrolist) {
-		this.livrolist = livrolist;
+	public void setLivroList(List<Livro> livroList) {
+		this.livroList = livroList;
 	}
-
-
-	
-	
 
 }
