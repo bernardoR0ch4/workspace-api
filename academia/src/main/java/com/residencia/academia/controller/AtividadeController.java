@@ -48,13 +48,25 @@ public class AtividadeController {
     
     @PutMapping
     public ResponseEntity<Atividade> updateAtividade(@RequestBody Atividade atividade){
-    	Atividade novoAtividade = atividadeService.updateAtividade(atividade);
-        return new ResponseEntity<>(novoAtividade, HttpStatus.OK);
+    	Atividade atividadeFound = atividadeService.findAtividadeById(atividade.getIdAtividade());
+    	if (atividadeFound == null) {
+    		throw new NoSuchElementFoundException("Não foi encontrado o Atividade com o id " + atividade.getIdAtividade());
+        }
+        else {
+        	Atividade novoAtividade = atividadeService.updateAtividade(atividade);
+    		return new ResponseEntity<>(novoAtividade, HttpStatus.OK);
+        } 
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAtividade(@PathVariable Integer id) {
-    	atividadeService.deleteAtividade(id);
-    	return new ResponseEntity<>("", HttpStatus.OK);
+    	Atividade atividade = atividadeService.findAtividadeById(id);
+    	if (atividade == null) {
+    		throw new NoSuchElementFoundException("Não foi encontrado o Atividade com o id " + id);
+        }
+        else {
+        	atividadeService.deleteAtividade(id);
+            return new ResponseEntity<>("", HttpStatus.OK);
+        } 
     }
 }

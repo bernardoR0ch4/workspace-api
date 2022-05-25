@@ -59,16 +59,12 @@ public class InstrutorService {
 	}
 
 	public void deleteInstrutor(Integer id) {
-		Instrutor intrutor = instrutorRepository.findById(id).get();
-		instrutorRepository.delete(intrutor);
+		Instrutor instrutor = instrutorRepository.findById(id).get();
+		instrutorRepository.delete(instrutor);
 	}
 
-	public void deleteInstrutor(Instrutor Instrutor) {
-		instrutorRepository.delete(Instrutor);
-
-	}
 	
-	private Instrutor convertendoDTOparaEntidade(InstrutorDTO instrutorDTO) {
+	public Instrutor convertendoDTOparaEntidade(InstrutorDTO instrutorDTO) {
 		Instrutor instrutor = new Instrutor();
 		instrutor.setDataNascimento(instrutorDTO.getDataNascimento());
 		instrutor.setIdInstrutor(instrutorDTO.getIdInstrutor());
@@ -78,7 +74,7 @@ public class InstrutorService {
 		
 		return instrutor;
 	}
-	private InstrutorDTO convertendoEntidadeParaDTO(Instrutor instrutor) {
+	public InstrutorDTO convertendoEntidadeParaDTO(Instrutor instrutor) {
 		InstrutorDTO instrutorDTO = new InstrutorDTO();
 		instrutorDTO.setDataNascimento(instrutor.getDataNascimento());
 		instrutorDTO.setIdInstrutor(instrutor.getIdInstrutor());

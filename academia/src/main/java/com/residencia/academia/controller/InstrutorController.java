@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.academia.dto.InstrutorDTO;
 import com.residencia.academia.entity.Instrutor;
+import com.residencia.academia.exception.NoSuchElementFoundException;
 import com.residencia.academia.service.InstrutorService;
 
 @RestController
@@ -32,9 +33,12 @@ public class InstrutorController {
 
 	@GetMapping("/dto/{id}")
 	public ResponseEntity<InstrutorDTO> findInstrutorDTOById(@PathVariable Integer id) {
-
 		InstrutorDTO instrutorDTO = instrutorService.findInstrutorDTOById(id);
-		return new ResponseEntity<>(instrutorDTO, HttpStatus.OK);
+		if (instrutorDTO == null) {
+			throw new NoSuchElementFoundException("Não foi encontrado o Instrutor com o id " + id);
+		} else {
+			return new ResponseEntity<>(instrutorDTO, HttpStatus.OK);
+		}
 	}
 
 	@GetMapping("/{id}")
@@ -66,7 +70,12 @@ public class InstrutorController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteInstrutor(@PathVariable Integer id) {
-		instrutorService.deleteInstrutor(id);
-		return new ResponseEntity<>("", HttpStatus.OK);
+		Instrutor instrutor = instrutorService.findInstrutorById(id);
+		if (instrutor == null) {
+			throw new NoSuchElementFoundException("Não foi encontrado o Instrutor com o id " + id);
+		} else {
+			instrutorService.deleteInstrutor(id);
+			return new ResponseEntity<>("", HttpStatus.OK);
+		}
 	}
 }
